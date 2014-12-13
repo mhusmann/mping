@@ -11,20 +11,19 @@ import (
   "regexp"
 )
 
-func main() {
-  const startIp = "192.168.178.1"
-  const endIp = "192.168.178.100"
-  const htp = "htp.net"
+const startIp = "192.168.178.1"
+const endIp = "192.168.178.100"
+const extern = "8.8.8.8"
 
+func main() {
   // regex to eliminate the output IP address
   repl := regexp.MustCompile(`\d+\.\d+\.\d+\.\d+`)
   re := regexp.MustCompile(`\s`)
 
   // first try my service provider
-
-  out0, err := exec.Command("ping", "-c1", htp).Output()
+  out0, err := exec.Command("ping", "-c1", extern).Output()
   if err != nil {
-    log.Fatal("htp ist nicht erreichbar")
+    log.Fatal("extern ist nicht erreichbar")
   }
   s := strings.SplitAfter(string(out0), "--- ")
   fmt.Printf("%s", s[0])
